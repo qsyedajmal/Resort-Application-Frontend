@@ -1,6 +1,8 @@
 
  import { useFormik } from 'formik'
 import React, { useState } from 'react'
+import { loginAuthenticate} from '../API/LoginApiService.js'
+
 
 export default function Login
 () {
@@ -15,22 +17,49 @@ export default function Login
     },
 
     onSubmit : values =>{
-        console.log(values)
+        console.log(values.email)
+        console.log(values.password)
+
+        const loginbody =
+        {
+           email:values.email,
+           password:values.password
+        }
+        
+        loginAuthenticate(loginbody)
+              .then((response)=>success(response))
+              .catch((error)=>failure(error))
+
     }
   })
+
+
+  const success = (response)=>{
+    console.log(response.data)
+    setExist(false)
+
+  }
+
+  const failure = (error)=>{
+    if(error.request.status==406)
+    {
+        setExist(true)
+    }
+    console.log(error.request.status)
+  }
 
 
   return (
     <div className='w-full h-screen bg-gradient-to-b from-white to-blue-400'>
 
-      <div className='max-w-screen-lg  2xl:max-w-screen-xl w-full h-full flex flex-col mx-auto justify-center items-center'>
+      <div className='max-w-screen-lg  2xl:max-w-screen-xl w-full h-full flex flex-col mx-auto justify-center items-center px-4 md:px-0'>
 
         <div className='pb-8'>
                 <p className='text-4xl font-bold  inline-block '>LOGIN</p>
         </div>
 
-        <form className=' flex flex-col mx-auto w-1/3 border-2 border-gray-600 shadow-lg shadow-gray-400 rounded-3xl p-14 justify-center'
-              onSubmit={formik.handleSubmit}>
+        <form className=' flex flex-col mx-auto w-full md:w-1/3 border-2 border-gray-600 shadow-lg shadow-gray-400 rounded-3xl p-14 justify-center '
+              onSubmit={formik.handleSubmit} method='POST'>
 
              <label htmlFor="email" className='text-center pb-4 text-xl'>e-mail</label>
              <input type="email" name="email" id="email" placeholder='Enter your e-mail' className='p-2 border-2 border-gray-600 rounded-lg mb-2 bg-transparent' onChange={formik.handleChange} value={formik.values.email}/>
