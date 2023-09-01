@@ -13,19 +13,10 @@ export default function Login
     
     initialValues:{
         email:'',
-        password:'',
     },
 
     onSubmit : values =>{
-        // console.log(values.email)
-        // console.log(values.password)
 
-        // const loginbody =
-        // {
-        //    email:values.email,
-        //    password:values.password
-        // }
-        
         generateOTP(values.email)
               .then((response)=>success(response))
               .catch((error)=>failure(error))
