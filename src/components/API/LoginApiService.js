@@ -7,3 +7,5 @@ const apiClient = axios.create(
 )
 
 export const loginAuthenticate = (loginbody)=> apiClient.post('/authentication',loginbody )
+
+export const generateOTP = (email)=> apiClient.post(`/generateotp/${email}`)

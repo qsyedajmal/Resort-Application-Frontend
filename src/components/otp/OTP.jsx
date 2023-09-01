@@ -1,7 +1,7 @@
 
  import { useFormik } from 'formik'
 import React, { useState } from 'react'
-import { loginAuthenticate} from '../API/LoginApiService.js'
+import { generateOTP} from '../API/LoginApiService.js'
 
 
 export default function Login
@@ -17,16 +17,16 @@ export default function Login
     },
 
     onSubmit : values =>{
-        console.log(values.email)
-        console.log(values.password)
+        // console.log(values.email)
+        // console.log(values.password)
 
-        const loginbody =
-        {
-           email:values.email,
-           password:values.password
-        }
+        // const loginbody =
+        // {
+        //    email:values.email,
+        //    password:values.password
+        // }
         
-        loginAuthenticate(loginbody)
+        generateOTP(values.email)
               .then((response)=>success(response))
               .catch((error)=>failure(error))
 
@@ -36,16 +36,16 @@ export default function Login
 
   const success = (response)=>{
     console.log(response.data)
-    setExist(false)
+     setExist(false)
 
   }
 
   const failure = (error)=>{
-    if(error.request.status===406)
-    {
-        setExist(true)
-    }
-    console.log(error.request.status)
+    // if(error.request.status===406)
+    // {
+    //     setExist(true)
+    // }
+    // console.log(error.request.status)
   }
 
 
