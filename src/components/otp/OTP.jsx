@@ -2,12 +2,15 @@
  import { useFormik } from 'formik'
 import React, { useState } from 'react'
 import { generateOTP} from '../API/LoginApiService.js'
+import { useNavigate } from 'react-router'
 
 
 export default function Login
 () {
 
   const[exist,setExist] = useState(false)
+
+  const navigate =useNavigate()
 
   const formik = useFormik({
     
@@ -27,7 +30,8 @@ export default function Login
 
   const success = (response)=>{
     console.log(response.data)
-     setExist(false)
+    setExist(false)
+    navigate(`/otpvalidation/${response.data}`)
 
   }
 
